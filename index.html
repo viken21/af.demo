@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+ 
+    <head>
+        <title>Demo</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <link rel="stylesheet" type="text/css" href="http://cdn.app-framework-software.intel.com/2.0/af.ui.css" />
+
+        <!-- include touch on desktop browsers only -->
+        <script>
+
+            if (!((window.DocumentTouch && document instanceof DocumentTouch) || 'ontouchstart' in window)) {
+                var script = document.createElement("script");
+                script.src = "plugins/af.desktopBrowsers.js";
+                var tag = $("head").append(script);
+                
+				
+				//$.os.android = true; //let's make it run like an android device
+                //$.os.desktop = true;
+            }
+ 			
+        </script>
+		
+        <script type="text/javascript" charset="utf-8" src="http://cdn.app-framework-software.intel.com/2.0/appframework.ui.min.js"></script>
+		<script type="text/javascript">
+ 
+             var webRoot = "./";
+			//$.ui.disableNativeScrolling();
+            $.ui.autoLaunch = true; //By default, it is set to true and you're app will run right away.  We set it to false to show a splashscreen
+			$.feat.nativeTouchScroll=false;
+            /* This function runs when the body is loaded.*/
+			
+           var init = function () {
+                    $.ui.backButtonText = "Back";// We override the back button text to always say "Back"
+					
+                    window.setTimeout(function () {
+                        $.ui.launch();
+                    }, 0);//1500 default //We wait 1.5 seconds to call $.ui.launch after DOMContentLoaded fires
+                };
+            document.addEventListener("DOMContentLoaded", init, false);
+            $.ui.ready(function () {
+                //This function will get executed when $.ui.launch has completed
+				$.ui.toggleSideMenu(false);
+				$.ui.disableSideMenu();
+            });
+ 			
+			/* This code is used for native apps */
+            var onDeviceReadyAppMobi = function () {
+                    AppMobi.device.setRotateOrientation("portrait");
+                    AppMobi.device.setAutoRotate(false);
+                    webRoot = AppMobi.webRoot + "/";
+					
+                    //hide splash screen
+                    AppMobi.device.hideSplashScreen();
+					$.ui.blockPageScroll(); //block the page from scrolling at the header/footer
+					
+					
+            };
+			
+			document.addEventListener("deviceready", onDeviceReady, false);
+	
+			function onDeviceReady() {
+			}
+			
+ 			
+
+        </script>
+
+    </head>
+    <body >
+		
+        <div id="afui"> <!-- this is the main container div.  This way, you can have only part of your app use UI -->
+            <!-- this is the header div at the top -->
+            <div id="header">					
+			</div>
+            
+			<div id="content">
+					
+				<!-- here is where you can add your panels -->
+                <div title='Demo' id="demo" class="panel">
+					<div>
+						<div class="button mdlopen">click</div>
+					</div>
+					<script>
+						$('.mdlopen').bind('tap',function(){
+							$.ui.showModal("#modelcheck","down");
+						});
+					</script>
+				</div>
+				
+				<div id="modelcheck" class="panel" >
+					<div style="padding-top:50px; display: inline-block; width:100%;">
+						<input type="checkbox" name="confirm" id="confirm"><label for="confirm">Are you agree?</label>
+						<input type="radio" name="gender" value='Male' id="Male" >  <label for="Male">Male</label>
+						<input type="radio" name="gender" value='Female' id="Female" >  <label for="Male">Female</label>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</body>
+	</html>	
