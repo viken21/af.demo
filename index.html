@@ -16,19 +16,13 @@
                 var script = document.createElement("script");
                 script.src = "plugins/af.desktopBrowsers.js";
                 var tag = $("head").append(script);
-                
-				
-				//$.os.android = true; //let's make it run like an android device
-                //$.os.desktop = true;
+
             }
  			
         </script>
-		
         
 		<script type="text/javascript">
- 
              var webRoot = "./";
-			//$.ui.disableNativeScrolling();
             $.ui.autoLaunch = true; //By default, it is set to true and you're app will run right away.  We set it to false to show a splashscreen
 			$.feat.nativeTouchScroll=false;
             /* This function runs when the body is loaded.*/
@@ -72,8 +66,7 @@
     </head>
     <body >
 		
-        <div id="afui"> <!-- this is the main container div.  This way, you can have only part of your app use UI -->
-            <!-- this is the header div at the top -->
+        <div id="afui"> 
             <div id="header">					
 			</div>
             
